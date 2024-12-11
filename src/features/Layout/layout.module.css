@@ -1,0 +1,70 @@
+.root {
+  display: flex;
+}
+
+.appBar {
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.menuButton {
+  margin-right: 16px;
+}
+
+@media (min-width: 600px) {
+  .appBar {
+    width: calc(100% - 240px);
+    margin-left: 240px;
+  }
+
+  .menuButton {
+    display: none;
+  }
+}
+
+.drawer {
+  width: 240px;
+  flex-shrink: 0;
+}
+
+.drawerPaper {
+  width: 240px;
+  box-sizing: border-box;
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 16px;
+  min-height: 100vh;
+  margin-top: 56px;
+  background-color: #f5f5f5;
+}
+
+.listItem {
+  min-height: 48px;
+  padding: 0 20px;
+}
+
+.listItemSelected {
+  background-color: rgba(25, 118, 210, 0.12);
+}
+
+.listItemIcon {
+  min-width: 0;
+  margin-right: 16px;
+  justify-content: center;
+}
+
+@media (min-width: 600px) {
+  .content {
+    padding: 24px;
+    margin-top: 64px;
+  }
+}

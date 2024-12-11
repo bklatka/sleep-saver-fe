@@ -1,0 +1,39 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.listItem {
+  padding: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.listItem:last-child {
+  border-bottom: none;
+}
+
+.listItemText {
+  margin-right: 16px;
+}
+
+@media (min-width: 600px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .listItem {
+    padding: 20px;
+  }
+}

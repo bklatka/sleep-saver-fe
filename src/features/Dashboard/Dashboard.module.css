@@ -1,0 +1,43 @@
+.container {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.card {
+  padding: 16px;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  background-color: white;
+}
+
+.cardTitle {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 600px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .card {
+    padding: 24px;
+  }
+
+  .cardTitle {
+    font-size: 1.25rem;
+  }
+}

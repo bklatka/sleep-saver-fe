@@ -1,0 +1,40 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.form {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.input {
+  flex-grow: 1;
+}
+
+.list {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.listItem {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.listItem:last-child {
+  border-bottom: none;
+}
+
+@media (min-width: 600px) {
+  .title {
+    font-size: 2rem;
+  }
+}

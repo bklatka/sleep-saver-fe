@@ -1,0 +1,36 @@
+.container {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  padding: 16px;
+}
+
+.chart {
+  margin-top: 16px;
+  height: 300px;
+}
+
+@media (min-width: 600px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .card {
+    padding: 24px;
+  }
+
+  .chart {
+    height: 400px;
+  }
+}
