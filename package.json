@@ -44,7 +44,7 @@
   },
   "scripts": {
     "start": "webpack serve --mode development --hot",
-    "build": "webpack --mode production",
+    "build": "NODE_ENV=production webpack --mode production",
     "type-check": "tsc --noEmit",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,scss}\"",
     "prepare": "cd .. && husky install frontend/.husky"
