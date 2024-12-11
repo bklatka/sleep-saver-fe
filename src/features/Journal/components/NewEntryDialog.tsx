@@ -1,12 +1,6 @@
 import React from 'react';
-import { 
-  Dialog, 
-  DialogTitle, 
-  DialogContent, 
-  DialogActions, 
-  Button,
-  Box
-} from '@mui/material';
+
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import { format } from 'date-fns';
 
@@ -51,4 +45,4 @@ export const NewEntryDialog = ({ open, onClose, onConfirm }: NewEntryDialogProps
       </DialogActions>
     </Dialog>
   );
-}; 
+};

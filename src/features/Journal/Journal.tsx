@@ -1,67 +1,57 @@
 import React from 'react';
-import { 
-  Box, 
-  Paper, 
-  Typography, 
-  Button, 
+import { useNavigate } from 'react-router-dom';
+
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
   CircularProgress,
+  Divider,
+  Paper,
+  Rating,
+  Stack,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Rating,
   Tooltip,
-  Divider,
-  Card,
-  CardContent,
-  useTheme,
+  Typography,
   useMediaQuery,
-  Stack
+  useTheme,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { observer } from 'mobx-react-lite';
-import { settingsStore } from '../../stores/SettingsStore';
 
-import { useJournalQuery } from './hooks/useJournalQuery';
-import { groupEntriesByWeek, formatWeekRange, getWeekDays } from './utils/dateUtils';
-import { NewEntryDialog } from './components/NewEntryDialog';
+import { settingsStore } from '../../stores/SettingsStore';
 import { CompactProgress } from './components/CompactProgress';
-import { calculateCompletedFields, TOTAL_REQUIRED_FIELDS } from './utils/progressUtils';
+import { NewEntryDialog } from './components/NewEntryDialog';
 import { useDownloadWeeklyReport } from './hooks/useDownloadWeeklyReport';
+import { useJournalQuery } from './hooks/useJournalQuery';
+import { formatWeekRange, getWeekDays, groupEntriesByWeek } from './utils/dateUtils';
+import { TOTAL_REQUIRED_FIELDS, calculateCompletedFields } from './utils/progressUtils';
 
 const DayCard = ({ date, entry, onEdit, onAdd, formatTime }) => (
   <Card sx={{ mb: 2 }}>
     <CardContent>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-        <Typography variant="h6">
-          {format(date, 'EEE, MMM d')}
-        </Typography>
+        <Typography variant="h6">{format(date, 'EEE, MMM d')}</Typography>
         {entry ? (
-          <Button
-            startIcon={<EditIcon />}
-            onClick={onEdit}
-            size="small"
-          >
+          <Button startIcon={<EditIcon />} onClick={onEdit} size="small">
             Edit
           </Button>
         ) : (
-          <Button
-            startIcon={<AddIcon />}
-            onClick={onAdd}
-            size="small"
-            color="primary"
-          >
+          <Button startIcon={<AddIcon />} onClick={onAdd} size="small" color="primary">
             Add
           </Button>
         )}
       </Box>
-      
+
       {entry && (
         <>
           <Stack spacing={1}>
@@ -73,7 +63,7 @@ const DayCard = ({ date, entry, onEdit, onAdd, formatTime }) => (
                 {formatTime(entry.timeGoToBed)} → {formatTime(entry.timeDecidedToSleep)}
               </Typography>
             </Box>
-            
+
             <Box>
               <Typography variant="body2" color="text.secondary">
                 Wake up time
@@ -82,7 +72,7 @@ const DayCard = ({ date, entry, onEdit, onAdd, formatTime }) => (
                 {formatTime(entry.timeWakeupMorning)} → {formatTime(entry.timeOutOfBedMorning)}
               </Typography>
             </Box>
-            
+
             <Box>
               <Typography variant="body2" color="text.secondary">
                 Progress
@@ -106,8 +96,8 @@ export const JournalList = observer(() => {
   const { data: journals, isLoading } = useJournalQuery();
   const downloadReport = useDownloadWeeklyReport();
 
-  const weekGroups = React.useMemo(() => 
-    groupEntriesByWeek(journals || [], settingsStore.weekStartsOn),
+  const weekGroups = React.useMemo(
+    () => groupEntriesByWeek(journals || [], settingsStore.weekStartsOn),
     [journals, settingsStore.weekStartsOn]
   );
 
@@ -160,7 +150,9 @@ export const JournalList = observer(() => {
 
       {weekGroups.map((group) => (
         <Box key={group.weekStart.toISOString()} sx={{ mb: 4 }}>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+          <Box
+            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}
+          >
             <Typography variant="h6" color="primary">
               {formatWeekRange(group.weekStart, settingsStore.weekStartsOn)}
             </Typography>
@@ -176,16 +168,18 @@ export const JournalList = observer(() => {
 
           {isMobile ? (
             <Stack spacing={2}>
-              {getWeekDays(group.weekStart, settingsStore.weekStartsOn, group.entries).map(({ date, entry }) => (
-                <DayCard
-                  key={date.toISOString()}
-                  date={date}
-                  entry={entry}
-                  onEdit={() => navigate(`/journal/${format(date, 'yyyy-MM-dd')}`)}
-                  onAdd={() => navigate(`/journal/${format(date, 'yyyy-MM-dd')}`)}
-                  formatTime={formatTime}
-                />
-              ))}
+              {getWeekDays(group.weekStart, settingsStore.weekStartsOn, group.entries).map(
+                ({ date, entry }) => (
+                  <DayCard
+                    key={date.toISOString()}
+                    date={date}
+                    entry={entry}
+                    onEdit={() => navigate(`/journal/${format(date, 'yyyy-MM-dd')}`)}
+                    onAdd={() => navigate(`/journal/${format(date, 'yyyy-MM-dd')}`)}
+                    formatTime={formatTime}
+                  />
+                )
+              )}
             </Stack>
           ) : (
             <TableContainer component={Paper} elevation={2}>
@@ -200,67 +194,69 @@ export const JournalList = observer(() => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {getWeekDays(group.weekStart, settingsStore.weekStartsOn, group.entries).map(({ date, entry }) => (
-                    <TableRow 
-                      key={date.toISOString()}
-                      sx={{ 
-                        backgroundColor: entry ? undefined : 'action.hover',
-                      }}
-                    >
-                      <TableCell>
-                        {format(date, 'EEE, MMM d')}
-                      </TableCell>
-                      {entry ? (
-                        <>
-                          <TableCell align="center">
-                            <Tooltip title="Time went to bed → Time decided to sleep" arrow>
-                              <span>
-                                {formatTime(entry.timeGoToBed)} → {formatTime(entry.timeDecidedToSleep)}
-                              </span>
-                            </Tooltip>
-                          </TableCell>
-                          <TableCell align="center">
-                            <Tooltip title="Time woke up → Time got out of bed" arrow>
-                              <span>
-                                {formatTime(entry.timeWakeupMorning)} → {formatTime(entry.timeOutOfBedMorning)}
-                              </span>
-                            </Tooltip>
-                          </TableCell>
-                          <TableCell align="center" sx={{ minWidth: 100 }}>
-                            <CompactProgress
-                              completedFields={calculateCompletedFields(entry)}
-                              totalFields={TOTAL_REQUIRED_FIELDS}
-                            />
-                          </TableCell>
-                          <TableCell align="center">
-                            <Button
-                              startIcon={<EditIcon />}
-                              onClick={() => navigate(`/journal/${format(date, 'yyyy-MM-dd')}`)}
-                              size="small"
-                            >
-                              Edit
-                            </Button>
-                          </TableCell>
-                        </>
-                      ) : (
-                        <>
-                          <TableCell>-</TableCell>
-                          <TableCell>-</TableCell>
-                          <TableCell align="center">-</TableCell>
-                          <TableCell align="center">
-                            <Button
-                              startIcon={<AddIcon />}
-                              onClick={() => navigate(`/journal/${format(date, 'yyyy-MM-dd')}`)}
-                              size="small"
-                              color="primary"
-                            >
-                              Add
-                            </Button>
-                          </TableCell>
-                        </>
-                      )}
-                    </TableRow>
-                  ))}
+                  {getWeekDays(group.weekStart, settingsStore.weekStartsOn, group.entries).map(
+                    ({ date, entry }) => (
+                      <TableRow
+                        key={date.toISOString()}
+                        sx={{
+                          backgroundColor: entry ? undefined : 'action.hover',
+                        }}
+                      >
+                        <TableCell>{format(date, 'EEE, MMM d')}</TableCell>
+                        {entry ? (
+                          <>
+                            <TableCell align="center">
+                              <Tooltip title="Time went to bed → Time decided to sleep" arrow>
+                                <span>
+                                  {formatTime(entry.timeGoToBed)} →{' '}
+                                  {formatTime(entry.timeDecidedToSleep)}
+                                </span>
+                              </Tooltip>
+                            </TableCell>
+                            <TableCell align="center">
+                              <Tooltip title="Time woke up → Time got out of bed" arrow>
+                                <span>
+                                  {formatTime(entry.timeWakeupMorning)} →{' '}
+                                  {formatTime(entry.timeOutOfBedMorning)}
+                                </span>
+                              </Tooltip>
+                            </TableCell>
+                            <TableCell align="center" sx={{ minWidth: 100 }}>
+                              <CompactProgress
+                                completedFields={calculateCompletedFields(entry)}
+                                totalFields={TOTAL_REQUIRED_FIELDS}
+                              />
+                            </TableCell>
+                            <TableCell align="center">
+                              <Button
+                                startIcon={<EditIcon />}
+                                onClick={() => navigate(`/journal/${format(date, 'yyyy-MM-dd')}`)}
+                                size="small"
+                              >
+                                Edit
+                              </Button>
+                            </TableCell>
+                          </>
+                        ) : (
+                          <>
+                            <TableCell>-</TableCell>
+                            <TableCell>-</TableCell>
+                            <TableCell align="center">-</TableCell>
+                            <TableCell align="center">
+                              <Button
+                                startIcon={<AddIcon />}
+                                onClick={() => navigate(`/journal/${format(date, 'yyyy-MM-dd')}`)}
+                                size="small"
+                                color="primary"
+                              >
+                                Add
+                              </Button>
+                            </TableCell>
+                          </>
+                        )}
+                      </TableRow>
+                    )
+                  )}
                 </TableBody>
               </Table>
             </TableContainer>
@@ -280,7 +276,5 @@ export const JournalList = observer(() => {
 });
 
 export const Journal = () => {
-  return (
-    <JournalList />
-  );
+  return <JournalList />;
 };

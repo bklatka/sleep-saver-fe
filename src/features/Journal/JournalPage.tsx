@@ -1,10 +1,11 @@
 import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Box, CircularProgress, Typography, Button } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { useJournalByDate } from './hooks/useJournalByDate';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Box, Button, CircularProgress, Typography } from '@mui/material';
+
 import { JournalForm } from './JournalForm';
+import { useJournalByDate } from './hooks/useJournalByDate';
 
 export const JournalPage = () => {
   const { date } = useParams<{ date: string }>();
@@ -29,24 +30,17 @@ export const JournalPage = () => {
 
   return (
     <Box p={2}>
-      
-        <Button
-          variant="outlined"
-          startIcon={<ArrowBackIcon />}
-          onClick={() => navigate('/journal')}
-          style={{ marginBottom: '10px' }}
-        >
-          Back to List
-        </Button>
-        <Typography variant="h4">
-          Journal Entry for {new Date(date!).toLocaleDateString()}
-        </Typography>
-      
-      <JournalForm 
-        initialData={journal} 
-        date={date!} 
-        key={date}
-      />
+      <Button
+        variant="outlined"
+        startIcon={<ArrowBackIcon />}
+        onClick={() => navigate('/journal')}
+        style={{ marginBottom: '10px' }}
+      >
+        Back to List
+      </Button>
+      <Typography variant="h4">Journal Entry for {new Date(date!).toLocaleDateString()}</Typography>
+
+      <JournalForm initialData={journal} date={date!} key={date} />
     </Box>
   );
-}; 
+};

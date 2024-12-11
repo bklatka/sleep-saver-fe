@@ -11,13 +11,13 @@ export const calculateCompletedFields = (entry: JournalEntry): number => {
     'timeOutOfBedMorning',
     'minutesFeelingSleepy',
     'sleepingQuality',
-    'mood'
+    'mood',
   ];
 
-  return requiredFields.filter(field => {
+  return requiredFields.filter((field) => {
     const value = entry[field];
     return value !== null && value !== undefined && value !== '';
   }).length;
 };
 
-export const TOTAL_REQUIRED_FIELDS = 10; // All fields except comment 
+export const TOTAL_REQUIRED_FIELDS = 10; // All fields except comment

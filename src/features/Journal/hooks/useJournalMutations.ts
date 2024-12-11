@@ -100,4 +100,4 @@ export const useUpdateJournal = () => {
       queryClient.invalidateQueries({ queryKey: ['journal', variables.date] });
     },
   });
-}; 
+};

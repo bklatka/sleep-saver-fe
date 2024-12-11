@@ -1,15 +1,9 @@
 import React from 'react';
-import { 
-  Box, 
-  Paper, 
-  Typography, 
-  FormControl, 
-  InputLabel, 
-  Select, 
-  MenuItem 
-} from '@mui/material';
+
+import { Box, FormControl, InputLabel, MenuItem, Paper, Select, Typography } from '@mui/material';
 import { observer } from 'mobx-react-lite';
-import { settingsStore, WeekStartDay } from '../../stores/SettingsStore';
+
+import { WeekStartDay, settingsStore } from '../../stores/SettingsStore';
 
 const DAYS = [
   { value: 1, label: 'Monday' },
@@ -45,7 +39,7 @@ export const Settings = observer(() => {
             label="Week Starts On"
             onChange={handleWeekStartChange}
           >
-            {DAYS.map(day => (
+            {DAYS.map((day) => (
               <MenuItem key={day.value} value={day.value}>
                 {day.label}
               </MenuItem>

@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { Box, Paper, Typography } from '@mui/material';
-import { format, startOfWeek, eachDayOfInterval, endOfWeek } from 'date-fns';
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { eachDayOfInterval, endOfWeek, format, startOfWeek } from 'date-fns';
 import { observer } from 'mobx-react-lite';
+import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+
 import { settingsStore } from '../../../stores/SettingsStore';
 import { useJournalQuery } from '../hooks/useJournalQuery';
 
@@ -20,9 +22,9 @@ export const WeeklyEfficiencyWidget = observer(() => {
   const data: DataPoint[] = React.useMemo(() => {
     if (!journals) return [];
 
-    return eachDayOfInterval({ start: weekStart, end: weekEnd }).map(date => {
+    return eachDayOfInterval({ start: weekStart, end: weekEnd }).map((date) => {
       const entry = journals.find(
-        journal => format(new Date(journal.date), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd')
+        (journal) => format(new Date(journal.date), 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd')
       );
 
       return {
@@ -54,19 +56,16 @@ export const WeeklyEfficiencyWidget = observer(() => {
       <Box sx={{ width: '100%', height: 300 }}>
         <ResponsiveContainer>
           <LineChart data={data}>
-            <XAxis 
-              dataKey="date"
-              stroke="#666"
-            />
-            <YAxis 
+            <XAxis dataKey="date" stroke="#666" />
+            <YAxis
               domain={[0, 100]}
               ticks={[0, 25, 50, 75, 100]}
               stroke="#666"
-              label={{ 
-                value: 'Efficiency %', 
-                angle: -90, 
+              label={{
+                value: 'Efficiency %',
+                angle: -90,
                 position: 'insideLeft',
-                style: { textAnchor: 'middle' }
+                style: { textAnchor: 'middle' },
               }}
             />
             <Tooltip content={<CustomTooltip />} />
@@ -83,4 +82,4 @@ export const WeeklyEfficiencyWidget = observer(() => {
       </Box>
     </Paper>
   );
-}); 
+});

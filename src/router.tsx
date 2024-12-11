@@ -1,12 +1,13 @@
 import React from 'react';
-import { createBrowserRouter, Navigate } from 'react-router-dom';
-import { Layout } from './features/Layout/Layout';
+import { Navigate, createBrowserRouter } from 'react-router-dom';
+
+import { ProtectedRoute } from './components/ProtectedRoute';
 import { Dashboard } from './features/Dashboard/Dashboard';
 import { Journal } from './features/Journal/Journal';
 import { JournalPage } from './features/Journal/JournalPage';
+import { Layout } from './features/Layout/Layout';
 import { Login } from './features/Login/Login';
 import { Settings } from './features/Settings/Settings';
-import { ProtectedRoute } from './components/ProtectedRoute';
 
 export const router = createBrowserRouter([
   {
@@ -40,7 +41,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "*",
+    path: '*',
     element: <Navigate to="/" />,
-  }
-]); 
+  },
+]);

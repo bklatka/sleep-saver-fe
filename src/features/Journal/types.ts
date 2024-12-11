@@ -18,4 +18,4 @@ export interface JournalEntry {
   userId: string;
   createdAt: string;
   updatedAt: string;
-} 
+}

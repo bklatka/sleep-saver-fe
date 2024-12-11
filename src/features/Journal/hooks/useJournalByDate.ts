@@ -27,4 +27,4 @@ export const useJournalByDate = (date: string) => {
       return response.json();
     },
   });
-}; 
+};

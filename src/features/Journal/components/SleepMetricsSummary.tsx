@@ -1,14 +1,9 @@
 import React from 'react';
-import { 
-  Paper, 
-  Typography, 
-  Box, 
-  Grid,
-  Tooltip
-} from '@mui/material';
+
 import BedIcon from '@mui/icons-material/Bed';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import SpeedIcon from '@mui/icons-material/Speed';
+import { Box, Grid, Paper, Tooltip, Typography } from '@mui/material';
 
 interface SleepMetricsProps {
   minutesInBed: number | null;
@@ -16,7 +11,11 @@ interface SleepMetricsProps {
   sleepingEfficiency: number | null;
 }
 
-export const SleepMetricsSummary = ({ minutesInBed, minutesSleeping, sleepingEfficiency }: SleepMetricsProps) => {
+export const SleepMetricsSummary = ({
+  minutesInBed,
+  minutesSleeping,
+  sleepingEfficiency,
+}: SleepMetricsProps) => {
   const formatHoursAndMinutes = (minutes: number | null) => {
     if (minutes === null) return '-';
     const hours = Math.floor(minutes / 60);
@@ -32,7 +31,9 @@ export const SleepMetricsSummary = ({ minutesInBed, minutesSleeping, sleepingEff
             <Box display="flex" alignItems="center" gap={1}>
               <BedIcon color="primary" />
               <Box>
-                <Typography variant="body2" color="text.secondary">Time in Bed</Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Time in Bed
+                </Typography>
                 <Typography variant="h6">{formatHoursAndMinutes(minutesInBed)}</Typography>
               </Box>
             </Box>
@@ -43,7 +44,9 @@ export const SleepMetricsSummary = ({ minutesInBed, minutesSleeping, sleepingEff
             <Box display="flex" alignItems="center" gap={1}>
               <NightsStayIcon color="primary" />
               <Box>
-                <Typography variant="body2" color="text.secondary">Time Sleeping</Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Time Sleeping
+                </Typography>
                 <Typography variant="h6">{formatHoursAndMinutes(minutesSleeping)}</Typography>
               </Box>
             </Box>
@@ -54,7 +57,9 @@ export const SleepMetricsSummary = ({ minutesInBed, minutesSleeping, sleepingEff
             <Box display="flex" alignItems="center" gap={1}>
               <SpeedIcon color="primary" />
               <Box>
-                <Typography variant="body2" color="text.secondary">Sleep Efficiency</Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Sleep Efficiency
+                </Typography>
                 <Typography variant="h6">
                   {sleepingEfficiency !== null ? `${sleepingEfficiency}%` : '-'}
                 </Typography>
@@ -65,4 +70,4 @@ export const SleepMetricsSummary = ({ minutesInBed, minutesSleeping, sleepingEff
       </Grid>
     </Paper>
   );
-}; 
+};

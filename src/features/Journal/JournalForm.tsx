@@ -1,24 +1,26 @@
 import React from 'react';
-import { 
-  Box, 
-  TextField, 
-  Button, 
+import { useNavigate } from 'react-router-dom';
+
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import {
+  Box,
+  Button,
+  CircularProgress,
   Grid,
   IconButton,
-  Typography,
   Rating,
+  TextField,
   Tooltip,
-  CircularProgress
+  Typography,
 } from '@mui/material';
 import { TimePicker } from '@mui/x-date-pickers';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import { JournalEntry } from './types';
 import { parseISO, set } from 'date-fns';
-import { useCreateJournal, useUpdateJournal } from './hooks/useJournalMutations';
-import { useNavigate } from 'react-router-dom';
+
 import { toastService } from '../../services/ToastService';
 import { FormProgress } from './components/FormProgress';
 import { SleepMetricsSummary } from './components/SleepMetricsSummary';
+import { useCreateJournal, useUpdateJournal } from './hooks/useJournalMutations';
+import { JournalEntry } from './types';
 
 interface JournalFormProps {
   initialData: JournalEntry | null;
@@ -46,7 +48,7 @@ export const JournalForm = ({ initialData, date }: JournalFormProps) => {
 
   const parseTimeString = (timeString: string | null | undefined): Date | null => {
     if (!timeString) return null;
-    
+
     const baseDate = parseISO(date);
 
     if (timeString.includes('T')) {
@@ -55,27 +57,33 @@ export const JournalForm = ({ initialData, date }: JournalFormProps) => {
         hours: parsedDate.getHours(),
         minutes: parsedDate.getMinutes(),
         seconds: 0,
-        milliseconds: 0
+        milliseconds: 0,
       });
     }
-    
+
     const [hours, minutes] = timeString.split(':').map(Number);
-    return set(baseDate, { 
-      hours, 
+    return set(baseDate, {
+      hours,
       minutes,
       seconds: 0,
-      milliseconds: 0
+      milliseconds: 0,
     });
   };
 
   const [formState, setFormState] = React.useState<FormState>({
     timeGoToBed: initialData?.timeGoToBed ? parseTimeString(initialData.timeGoToBed) : null,
-    timeDecidedToSleep: initialData?.timeDecidedToSleep ? parseTimeString(initialData.timeDecidedToSleep) : null,
+    timeDecidedToSleep: initialData?.timeDecidedToSleep
+      ? parseTimeString(initialData.timeDecidedToSleep)
+      : null,
     minutesNeededToSleep: initialData?.minutesNeededToSleep ?? null,
     timesWokenUp: initialData?.timesWokenUp ?? null,
     totalWokeupDuration: initialData?.totalWokeupDuration ?? null,
-    timeWakeupMorning: initialData?.timeWakeupMorning ? parseTimeString(initialData.timeWakeupMorning) : null,
-    timeOutOfBedMorning: initialData?.timeOutOfBedMorning ? parseTimeString(initialData.timeOutOfBedMorning) : null,
+    timeWakeupMorning: initialData?.timeWakeupMorning
+      ? parseTimeString(initialData.timeWakeupMorning)
+      : null,
+    timeOutOfBedMorning: initialData?.timeOutOfBedMorning
+      ? parseTimeString(initialData.timeOutOfBedMorning)
+      : null,
     minutesFeelingSleepy: initialData?.minutesFeelingSleepy ?? null,
     sleepingQuality: initialData?.sleepingQuality ?? null,
     mood: initialData?.mood ?? null,
@@ -84,7 +92,7 @@ export const JournalForm = ({ initialData, date }: JournalFormProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
       if (initialData?._id) {
         await updateJournal.mutateAsync({
@@ -102,7 +110,7 @@ export const JournalForm = ({ initialData, date }: JournalFormProps) => {
         });
         toastService.success('Journal entry created successfully');
       }
-      
+
       navigate('/journal');
     } catch (error) {
       console.error('Failed to save journal:', error);
@@ -113,21 +121,21 @@ export const JournalForm = ({ initialData, date }: JournalFormProps) => {
   const setTimeToNow = (field: keyof FormState) => {
     const now = new Date();
     const baseDate = parseISO(date);
-    
+
     // Set the time from 'now' but keep the date from the form
     const timeWithFormDate = set(baseDate, {
       hours: now.getHours(),
       minutes: now.getMinutes(),
       seconds: 0,
-      milliseconds: 0
+      milliseconds: 0,
     });
 
-    setFormState(prev => ({ ...prev, [field]: timeWithFormDate }));
+    setFormState((prev) => ({ ...prev, [field]: timeWithFormDate }));
   };
 
   const handleTimeChange = (field: keyof FormState, newValue: Date | null) => {
     if (!newValue) {
-      setFormState(prev => ({ ...prev, [field]: null }));
+      setFormState((prev) => ({ ...prev, [field]: null }));
       return;
     }
 
@@ -136,10 +144,10 @@ export const JournalForm = ({ initialData, date }: JournalFormProps) => {
       hours: newValue.getHours(),
       minutes: newValue.getMinutes(),
       seconds: 0,
-      milliseconds: 0
+      milliseconds: 0,
     });
 
-    setFormState(prev => ({ ...prev, [field]: timeWithFormDate }));
+    setFormState((prev) => ({ ...prev, [field]: timeWithFormDate }));
   };
 
   const renderTimeField = (
@@ -170,21 +178,18 @@ export const JournalForm = ({ initialData, date }: JournalFormProps) => {
     </Box>
   );
 
-  const renderNumberField = (
-    label: string,
-    field: keyof FormState,
-    min?: number,
-    max?: number
-  ) => (
+  const renderNumberField = (label: string, field: keyof FormState, min?: number, max?: number) => (
     <TextField
       label={label}
       type="number"
       fullWidth
       value={formState[field] ?? ''}
-      onChange={(e) => setFormState(prev => ({ 
-        ...prev, 
-        [field]: e.target.value ? Number(e.target.value) : null 
-      }))}
+      onChange={(e) =>
+        setFormState((prev) => ({
+          ...prev,
+          [field]: e.target.value ? Number(e.target.value) : null,
+        }))
+      }
       inputProps={{ min, max }}
     />
   );
@@ -202,10 +207,10 @@ export const JournalForm = ({ initialData, date }: JournalFormProps) => {
       'timeOutOfBedMorning',
       'minutesFeelingSleepy',
       'sleepingQuality',
-      'mood'
+      'mood',
     ];
 
-    return requiredFields.filter(field => {
+    return requiredFields.filter((field) => {
       const value = state[field];
       return value !== null && value !== undefined && value !== '';
     }).length;
@@ -224,87 +229,58 @@ export const JournalForm = ({ initialData, date }: JournalFormProps) => {
         />
       )}
 
-      <FormProgress 
-        completedFields={completedFields}
-        totalFields={totalRequiredFields}
-      />
+      <FormProgress completedFields={completedFields} totalFields={totalRequiredFields} />
 
       <Grid container spacing={3}>
         {/* Bedtime Section */}
         <Grid item xs={12}>
-          <Typography variant="h6" gutterBottom>Bedtime</Typography>
+          <Typography variant="h6" gutterBottom>
+            Bedtime
+          </Typography>
           <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
-              {renderTimeField(
-                "Time you went to bed",
-                'timeGoToBed',
-                null
-              )}
+              {renderTimeField('Time you went to bed', 'timeGoToBed', null)}
             </Grid>
             <Grid item xs={12} md={6}>
-              {renderTimeField(
-                "Time you decided to sleep",
-                'timeDecidedToSleep',
-                null
-              )}
+              {renderTimeField('Time you decided to sleep', 'timeDecidedToSleep', null)}
             </Grid>
           </Grid>
         </Grid>
 
         {/* Morning Section */}
         <Grid item xs={12}>
-          <Typography variant="h6" gutterBottom>Morning</Typography>
+          <Typography variant="h6" gutterBottom>
+            Morning
+          </Typography>
           <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
-              {renderTimeField(
-                "Time you woke up",
-                'timeWakeupMorning',
-                null
-              )}
+              {renderTimeField('Time you woke up', 'timeWakeupMorning', null)}
             </Grid>
             <Grid item xs={12} md={6}>
-              {renderTimeField(
-                "Time you got out of bed",
-                'timeOutOfBedMorning',
-                null
-              )}
+              {renderTimeField('Time you got out of bed', 'timeOutOfBedMorning', null)}
             </Grid>
             <Grid item xs={12} md={6}>
-              {renderNumberField(
-                "Minutes needed to fall asleep",
-                'minutesNeededToSleep',
-                0
-              )}
+              {renderNumberField('Minutes needed to fall asleep', 'minutesNeededToSleep', 0)}
             </Grid>
             <Grid item xs={12} md={6}>
-              {renderNumberField(
-                "Number of times woken up",
-                'timesWokenUp',
-                0
-              )}
+              {renderNumberField('Number of times woken up', 'timesWokenUp', 0)}
             </Grid>
             <Grid item xs={12} md={6}>
-              {renderNumberField(
-                "Total minutes awake",
-                'totalWokeupDuration',
-                0
-              )}
+              {renderNumberField('Total minutes awake', 'totalWokeupDuration', 0)}
             </Grid>
             <Grid item xs={12} md={6}>
-              {renderNumberField(
-                "Minutes feeling sleepy during day",
-                'minutesFeelingSleepy',
-                0
-              )}
+              {renderNumberField('Minutes feeling sleepy during day', 'minutesFeelingSleepy', 0)}
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography component="legend">Sleep Quality</Typography>
               <Rating
                 value={formState.sleepingQuality}
-                onChange={(_, newValue) => setFormState(prev => ({
-                  ...prev,
-                  sleepingQuality: newValue
-                }))}
+                onChange={(_, newValue) =>
+                  setFormState((prev) => ({
+                    ...prev,
+                    sleepingQuality: newValue,
+                  }))
+                }
                 max={5}
               />
             </Grid>
@@ -312,10 +288,12 @@ export const JournalForm = ({ initialData, date }: JournalFormProps) => {
               <Typography component="legend">Mood</Typography>
               <Rating
                 value={formState.mood}
-                onChange={(_, newValue) => setFormState(prev => ({
-                  ...prev,
-                  mood: newValue
-                }))}
+                onChange={(_, newValue) =>
+                  setFormState((prev) => ({
+                    ...prev,
+                    mood: newValue,
+                  }))
+                }
                 max={5}
               />
             </Grid>
@@ -325,10 +303,12 @@ export const JournalForm = ({ initialData, date }: JournalFormProps) => {
                 multiline
                 rows={4}
                 value={formState.comment ?? ''}
-                onChange={(e) => setFormState(prev => ({
-                  ...prev,
-                  comment: e.target.value || null
-                }))}
+                onChange={(e) =>
+                  setFormState((prev) => ({
+                    ...prev,
+                    comment: e.target.value || null,
+                  }))
+                }
                 fullWidth
               />
             </Grid>
@@ -337,10 +317,10 @@ export const JournalForm = ({ initialData, date }: JournalFormProps) => {
 
         {/* Submit Button */}
         <Grid item xs={12}>
-          <Button 
-            type="submit" 
-            variant="contained" 
-            color="primary" 
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
             size="large"
             fullWidth
             disabled={isLoading}
@@ -352,4 +332,4 @@ export const JournalForm = ({ initialData, date }: JournalFormProps) => {
       </Grid>
     </Box>
   );
-}; 
+};

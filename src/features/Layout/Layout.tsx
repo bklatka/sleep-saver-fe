@@ -1,24 +1,25 @@
 import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { useTheme, useMediaQuery } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+
 import AddIcon from '@mui/icons-material/Add';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ListIcon from '@mui/icons-material/List';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
+import MenuIcon from '@mui/icons-material/Menu';
 import SettingsIcon from '@mui/icons-material/Settings';
 import TodayIcon from '@mui/icons-material/Today';
+import { useMediaQuery, useTheme } from '@mui/material';
 import {
+  AppBar,
   Box,
   Drawer,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  IconButton,
-  AppBar,
   Toolbar,
   Typography,
 } from '@mui/material';
@@ -117,9 +118,9 @@ export const Layout = observer(() => {
 
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh' }}>
-      <AppBar 
-        position="fixed" 
-        sx={{ 
+      <AppBar
+        position="fixed"
+        sx={{
           display: { sm: 'none' },
           width: { sm: `calc(100% - ${DRAWER_WIDTH}px)` },
           ml: { sm: `${DRAWER_WIDTH}px` },
@@ -141,10 +142,7 @@ export const Layout = observer(() => {
         </Toolbar>
       </AppBar>
 
-      <Box
-        component="nav"
-        sx={{ width: { sm: DRAWER_WIDTH }, flexShrink: { sm: 0 } }}
-      >
+      <Box component="nav" sx={{ width: { sm: DRAWER_WIDTH }, flexShrink: { sm: 0 } }}>
         {/* Mobile drawer */}
         <Drawer
           variant="temporary"
@@ -155,22 +153,22 @@ export const Layout = observer(() => {
           }}
           sx={{
             display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { 
-              boxSizing: 'border-box', 
-              width: DRAWER_WIDTH 
+            '& .MuiDrawer-paper': {
+              boxSizing: 'border-box',
+              width: DRAWER_WIDTH,
             },
           }}
         >
           {drawer}
         </Drawer>
-        
+
         {/* Desktop drawer */}
         <Drawer
           variant="permanent"
           sx={{
             display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { 
-              boxSizing: 'border-box', 
+            '& .MuiDrawer-paper': {
+              boxSizing: 'border-box',
               width: DRAWER_WIDTH,
               position: 'relative',
               height: '100vh',
@@ -182,13 +180,13 @@ export const Layout = observer(() => {
         </Drawer>
       </Box>
 
-      <Box 
-        component="main" 
-        sx={{ 
+      <Box
+        component="main"
+        sx={{
           flexGrow: 1,
           p: 3,
           width: { sm: `calc(100% - ${DRAWER_WIDTH}px)` },
-          mt: { xs: '64px', sm: 0 } // Add margin top for mobile to account for AppBar
+          mt: { xs: '64px', sm: 0 }, // Add margin top for mobile to account for AppBar
         }}
       >
         <Outlet />

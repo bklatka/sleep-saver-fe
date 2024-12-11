@@ -1,19 +1,14 @@
 import React from 'react';
-import { 
-  Box, 
-  Paper, 
-  Typography, 
-  CircularProgress, 
-  Button,
-  Tooltip
-} from '@mui/material';
-import { format } from 'date-fns';
+import { useNavigate } from 'react-router-dom';
+
+import AddIcon from '@mui/icons-material/Add';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import EditIcon from '@mui/icons-material/Edit';
-import AddIcon from '@mui/icons-material/Add';
-import { useNavigate } from 'react-router-dom';
+import { Box, Button, CircularProgress, Paper, Tooltip, Typography } from '@mui/material';
+import { format } from 'date-fns';
+
 import { JournalEntry } from '../types';
-import { calculateCompletedFields, TOTAL_REQUIRED_FIELDS } from '../utils/progressUtils';
+import { TOTAL_REQUIRED_FIELDS, calculateCompletedFields } from '../utils/progressUtils';
 
 interface TodayWidgetProps {
   todayEntry: JournalEntry | null;
@@ -22,15 +17,15 @@ interface TodayWidgetProps {
 export const TodayWidget = ({ todayEntry }: TodayWidgetProps) => {
   const navigate = useNavigate();
   const today = format(new Date(), 'yyyy-MM-dd');
-  
+
   const completedFields = todayEntry ? calculateCompletedFields(todayEntry) : 0;
   const progress = (completedFields / TOTAL_REQUIRED_FIELDS) * 100;
   const isComplete = completedFields === TOTAL_REQUIRED_FIELDS;
 
   return (
-    <Paper 
-      elevation={2} 
-      sx={{ 
+    <Paper
+      elevation={2}
+      sx={{
         p: 3,
         display: 'flex',
         flexDirection: 'column',
@@ -45,12 +40,12 @@ export const TodayWidget = ({ todayEntry }: TodayWidgetProps) => {
         Today's Journal
       </Typography>
 
-      <Box 
-        sx={{ 
+      <Box
+        sx={{
           position: 'relative',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
         }}
       >
         <CircularProgress
@@ -86,12 +81,11 @@ export const TodayWidget = ({ todayEntry }: TodayWidgetProps) => {
       </Box>
 
       <Typography variant="body2" color="text.secondary" align="center">
-        {isComplete 
-          ? "All fields completed!" 
-          : todayEntry 
+        {isComplete
+          ? 'All fields completed!'
+          : todayEntry
             ? `${completedFields} of ${TOTAL_REQUIRED_FIELDS} fields completed`
-            : "No entry yet"
-        }
+            : 'No entry yet'}
       </Typography>
 
       {!isComplete && (
@@ -106,4 +100,4 @@ export const TodayWidget = ({ todayEntry }: TodayWidgetProps) => {
       )}
     </Paper>
   );
-}; 
+};

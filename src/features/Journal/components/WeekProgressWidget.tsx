@@ -1,17 +1,12 @@
 import React from 'react';
-import { 
-  Box, 
-  Paper, 
-  Typography, 
-  CircularProgress,
-  Stack,
-  Tooltip
-} from '@mui/material';
-import { format, startOfWeek, endOfWeek, eachDayOfInterval, isSameDay } from 'date-fns';
-import { JournalEntry } from '../types';
-import { calculateCompletedFields, TOTAL_REQUIRED_FIELDS } from '../utils/progressUtils';
+
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { Box, CircularProgress, Paper, Stack, Tooltip, Typography } from '@mui/material';
+import { eachDayOfInterval, endOfWeek, format, isSameDay, startOfWeek } from 'date-fns';
+
 import { settingsStore } from '../../../stores/SettingsStore';
+import { JournalEntry } from '../types';
+import { TOTAL_REQUIRED_FIELDS, calculateCompletedFields } from '../utils/progressUtils';
 
 interface WeekProgressWidgetProps {
   journals: JournalEntry[] | undefined;
@@ -24,20 +19,20 @@ export const WeekProgressWidget = ({ journals }: WeekProgressWidgetProps) => {
     const today = new Date();
     const weekStart = startOfWeek(today, { weekStartsOn: settingsStore.weekStartsOn }); // Start from Monday
     const weekEnd = endOfWeek(today, { weekStartsOn: settingsStore.weekStartsOn });
-    
+
     const daysInWeek = eachDayOfInterval({ start: weekStart, end: weekEnd });
-    const completedEntries = journals.filter(entry => {
+    const completedEntries = journals.filter((entry) => {
       const entryDate = new Date(entry.date);
-      return daysInWeek.some(day => 
-        isSameDay(day, entryDate) && 
-        calculateCompletedFields(entry) === TOTAL_REQUIRED_FIELDS
+      return daysInWeek.some(
+        (day) =>
+          isSameDay(day, entryDate) && calculateCompletedFields(entry) === TOTAL_REQUIRED_FIELDS
       );
     });
 
     return {
       completedDays: completedEntries.length,
       totalDays: 7,
-      completedEntries
+      completedEntries,
     };
   }, [journals]);
 
@@ -45,9 +40,9 @@ export const WeekProgressWidget = ({ journals }: WeekProgressWidgetProps) => {
   const isComplete = weekStats.completedDays === weekStats.totalDays;
 
   return (
-    <Paper 
-      elevation={2} 
-      sx={{ 
+    <Paper
+      elevation={2}
+      sx={{
         p: 3,
         display: 'flex',
         flexDirection: 'column',
@@ -55,19 +50,19 @@ export const WeekProgressWidget = ({ journals }: WeekProgressWidgetProps) => {
         gap: 2,
         minWidth: 250,
         height: '100%',
-        minHeight: 300
+        minHeight: 300,
       }}
     >
       <Typography variant="h6" color="primary">
         This Week's Progress
       </Typography>
 
-      <Box 
-        sx={{ 
+      <Box
+        sx={{
           position: 'relative',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
         }}
       >
         <CircularProgress
@@ -103,10 +98,9 @@ export const WeekProgressWidget = ({ journals }: WeekProgressWidgetProps) => {
       </Box>
 
       <Typography variant="body2" color="text.secondary" align="center">
-        {isComplete 
-          ? "All days completed this week!" 
-          : `${weekStats.completedDays} of ${weekStats.totalDays} days completed`
-        }
+        {isComplete
+          ? 'All days completed this week!'
+          : `${weekStats.completedDays} of ${weekStats.totalDays} days completed`}
       </Typography>
 
       <Tooltip title="Days are counted as complete when all fields are filled">
@@ -116,4 +110,4 @@ export const WeekProgressWidget = ({ journals }: WeekProgressWidgetProps) => {
       </Tooltip>
     </Paper>
   );
-}; 
+};

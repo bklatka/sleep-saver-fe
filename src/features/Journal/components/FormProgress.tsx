@@ -1,12 +1,7 @@
 import React from 'react';
-import { 
-  Box, 
-  LinearProgress, 
-  Typography,
-  Tooltip,
-  Stack
-} from '@mui/material';
+
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { Box, LinearProgress, Stack, Tooltip, Typography } from '@mui/material';
 
 interface FormProgressProps {
   completedFields: number;
@@ -29,18 +24,18 @@ export const FormProgress = ({ completedFields, totalFields }: FormProgressProps
           </Tooltip>
         )}
       </Stack>
-      <LinearProgress 
-        variant="determinate" 
-        value={progress} 
-        sx={{ 
+      <LinearProgress
+        variant="determinate"
+        value={progress}
+        sx={{
           height: 8,
           borderRadius: 4,
           backgroundColor: 'action.hover',
           '& .MuiLinearProgress-bar': {
             backgroundColor: isComplete ? 'success.main' : 'primary.main',
-          }
+          },
         }}
       />
     </Box>
   );
-}; 
+};

@@ -27,7 +27,7 @@ class ToastService {
   }
 
   remove(id: number) {
-    this.toasts = this.toasts.filter(toast => toast.id !== id);
+    this.toasts = this.toasts.filter((toast) => toast.id !== id);
   }
 
   success(message: string) {
@@ -47,4 +47,4 @@ class ToastService {
   }
 }
 
-export const toastService = new ToastService(); 
+export const toastService = new ToastService();
