@@ -23,7 +23,7 @@ export const JournalPage = () => {
   if (error) {
     return (
       <Box p={2}>
-        <Typography color="error">Error loading journal entry</Typography>
+        <Typography color="error">Błąd podczas ładowania wpisu dziennika</Typography>
       </Box>
     );
   }
@@ -36,9 +36,9 @@ export const JournalPage = () => {
         onClick={() => navigate('/journal')}
         style={{ marginBottom: '10px' }}
       >
-        Back to List
+        Powrót do listy
       </Button>
-      <Typography variant="h4">Journal Entry for {new Date(date!).toLocaleDateString()}</Typography>
+      <Typography variant="h4">Wpis dziennika z dnia {new Date(date!).toLocaleDateString('pl')}</Typography>
 
       <JournalForm initialData={journal} date={date!} key={date} />
     </Box>

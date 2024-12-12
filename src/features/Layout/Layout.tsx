@@ -66,7 +66,7 @@ export const Layout = observer(() => {
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
-            <ListItemText primary="Dashboard" />
+            <ListItemText primary="Panel główny" />
           </ListItemButton>
         </ListItem>
         <ListItem>
@@ -74,7 +74,7 @@ export const Layout = observer(() => {
             <ListItemIcon>
               <TodayIcon />
             </ListItemIcon>
-            <ListItemText primary="Today's Journal" />
+            <ListItemText primary="Dzisiejszy dziennik" />
           </ListItemButton>
         </ListItem>
         <ListItem>
@@ -82,7 +82,7 @@ export const Layout = observer(() => {
             <ListItemIcon>
               <ListIcon />
             </ListItemIcon>
-            <ListItemText primary="All Entries" />
+            <ListItemText primary="Wszystkie wpisy" />
           </ListItemButton>
         </ListItem>
         <ListItem>
@@ -90,7 +90,7 @@ export const Layout = observer(() => {
             <ListItemIcon>
               <SettingsIcon />
             </ListItemIcon>
-            <ListItemText primary="Settings" />
+            <ListItemText primary="Ustawienia" />
           </ListItemButton>
         </ListItem>
       </List>
@@ -101,14 +101,14 @@ export const Layout = observer(() => {
               <ListItemIcon>
                 <LogoutIcon />
               </ListItemIcon>
-              <ListItemText primary="Logout" />
+              <ListItemText primary="Wyloguj" />
             </ListItemButton>
           ) : (
             <ListItemButton onClick={handleLogin}>
               <ListItemIcon>
                 <LoginIcon />
               </ListItemIcon>
-              <ListItemText primary="Login" />
+              <ListItemText primary="Zaloguj" />
             </ListItemButton>
           )}
         </ListItem>
@@ -129,7 +129,7 @@ export const Layout = observer(() => {
         <Toolbar>
           <IconButton
             color="inherit"
-            aria-label="open drawer"
+            aria-label="otwórz menu"
             edge="start"
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: 'none' } }}
@@ -143,13 +143,13 @@ export const Layout = observer(() => {
       </AppBar>
 
       <Box component="nav" sx={{ width: { sm: DRAWER_WIDTH }, flexShrink: { sm: 0 } }}>
-        {/* Mobile drawer */}
+        {/* Menu mobilne */}
         <Drawer
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true, // Lepsze działanie na urządzeniach mobilnych
           }}
           sx={{
             display: { xs: 'block', sm: 'none' },
@@ -162,7 +162,7 @@ export const Layout = observer(() => {
           {drawer}
         </Drawer>
 
-        {/* Desktop drawer */}
+        {/* Menu desktopowe */}
         <Drawer
           variant="permanent"
           sx={{
@@ -186,7 +186,7 @@ export const Layout = observer(() => {
           flexGrow: 1,
           p: 3,
           width: { sm: `calc(100% - ${DRAWER_WIDTH}px)` },
-          mt: { xs: '64px', sm: 0 }, // Add margin top for mobile to account for AppBar
+          mt: { xs: '64px', sm: 0 }, // Dodaj margines górny dla widoku mobilnego
         }}
       >
         <Outlet />

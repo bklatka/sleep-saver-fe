@@ -102,19 +102,19 @@ export const JournalForm = ({ initialData, date }: JournalFormProps) => {
             ...formState,
           },
         });
-        toastService.success('Journal entry updated successfully');
+        toastService.success('Wpis dziennika został zaktualizowany');
       } else {
         await createJournal.mutateAsync({
           date,
           ...formState,
         });
-        toastService.success('Journal entry created successfully');
+        toastService.success('Wpis dziennika został utworzony');
       }
 
       navigate('/journal');
     } catch (error) {
       console.error('Failed to save journal:', error);
-      toastService.error('Failed to save journal entry');
+      toastService.error('Nie udało się zapisać wpisu dziennika');
     }
   };
 
@@ -170,7 +170,7 @@ export const JournalForm = ({ initialData, date }: JournalFormProps) => {
           },
         }}
       />
-      <Tooltip title="Set to current time">
+      <Tooltip title="Ustaw aktualny czas">
         <IconButton onClick={() => setTimeToNow(field)} size="small">
           <AccessTimeIcon />
         </IconButton>
@@ -235,14 +235,14 @@ export const JournalForm = ({ initialData, date }: JournalFormProps) => {
         {/* Bedtime Section */}
         <Grid item xs={12}>
           <Typography variant="h6" gutterBottom>
-            Bedtime
+            Pora snu
           </Typography>
           <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
-              {renderTimeField('Time you went to bed', 'timeGoToBed', null)}
+              {renderTimeField('O której poszedłeś do łóżka', 'timeGoToBed', null)}
             </Grid>
             <Grid item xs={12} md={6}>
-              {renderTimeField('Time you decided to sleep', 'timeDecidedToSleep', null)}
+              {renderTimeField('O której postanowiłeś zasnąć', 'timeDecidedToSleep', null)}
             </Grid>
           </Grid>
         </Grid>
@@ -250,29 +250,29 @@ export const JournalForm = ({ initialData, date }: JournalFormProps) => {
         {/* Morning Section */}
         <Grid item xs={12}>
           <Typography variant="h6" gutterBottom>
-            Morning
+            Poranek
           </Typography>
           <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
-              {renderTimeField('Time you woke up', 'timeWakeupMorning', null)}
+              {renderTimeField('O której się obudziłeś', 'timeWakeupMorning', null)}
             </Grid>
             <Grid item xs={12} md={6}>
-              {renderTimeField('Time you got out of bed', 'timeOutOfBedMorning', null)}
+              {renderTimeField('O której wstałeś z łóżka', 'timeOutOfBedMorning', null)}
             </Grid>
             <Grid item xs={12} md={6}>
-              {renderNumberField('Minutes needed to fall asleep', 'minutesNeededToSleep', 0)}
+              {renderNumberField('Ile minut zajęło zaśnięcie (w minutach)', 'minutesNeededToSleep', 0)}
             </Grid>
             <Grid item xs={12} md={6}>
-              {renderNumberField('Number of times woken up', 'timesWokenUp', 0)}
+              {renderNumberField('Ile razy się obudziłeś', 'timesWokenUp', 0)}
             </Grid>
             <Grid item xs={12} md={6}>
-              {renderNumberField('Total minutes awake', 'totalWokeupDuration', 0)}
+              {renderNumberField('Całkowity czas obudzeń w minutach', 'totalWokeupDuration', 0)}
             </Grid>
             <Grid item xs={12} md={6}>
-              {renderNumberField('Minutes feeling sleepy during day', 'minutesFeelingSleepy', 0)}
+              {renderNumberField('Ile minut byłeś senny w ciągu dnia', 'minutesFeelingSleepy', 0)}
             </Grid>
             <Grid item xs={12} md={6}>
-              <Typography component="legend">Sleep Quality</Typography>
+              <Typography component="legend">Jakość snu</Typography>
               <Rating
                 value={formState.sleepingQuality}
                 onChange={(_, newValue) =>
@@ -285,7 +285,7 @@ export const JournalForm = ({ initialData, date }: JournalFormProps) => {
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Typography component="legend">Mood</Typography>
+              <Typography component="legend">Nastrój</Typography>
               <Rating
                 value={formState.mood}
                 onChange={(_, newValue) =>
@@ -299,7 +299,7 @@ export const JournalForm = ({ initialData, date }: JournalFormProps) => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label="Comments"
+                label="Komentarze"
                 multiline
                 rows={4}
                 value={formState.comment ?? ''}
@@ -326,7 +326,7 @@ export const JournalForm = ({ initialData, date }: JournalFormProps) => {
             disabled={isLoading}
             startIcon={isLoading ? <CircularProgress size={20} color="inherit" /> : null}
           >
-            {isLoading ? 'Saving...' : initialData ? 'Update' : 'Create'} Journal Entry
+            {isLoading ? 'Zapisywanie...' : initialData ? 'Aktualizuj' : 'Utwórz'} wpis dziennika
           </Button>
         </Grid>
       </Grid>

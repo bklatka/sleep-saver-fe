@@ -20,19 +20,19 @@ export const SleepMetricsSummary = ({
     if (minutes === null) return '-';
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
-    return `${hours}h ${mins}m (${minutes}m)`;
+    return `${hours}h ${mins}m (${minutes}min)`;
   };
 
   return (
     <Paper sx={{ p: 2, mb: 3 }}>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={4}>
-          <Tooltip title="Total time spent in bed">
+          <Tooltip title="Całkowity czas spędzony w łóżku">
             <Box display="flex" alignItems="center" gap={1}>
               <BedIcon color="primary" />
               <Box>
                 <Typography variant="body2" color="text.secondary">
-                  Time in Bed
+                  Czas w łóżku
                 </Typography>
                 <Typography variant="h6">{formatHoursAndMinutes(minutesInBed)}</Typography>
               </Box>
@@ -40,12 +40,12 @@ export const SleepMetricsSummary = ({
           </Tooltip>
         </Grid>
         <Grid item xs={12} sm={4}>
-          <Tooltip title="Actual time spent sleeping">
+          <Tooltip title="Rzeczywisty czas snu">
             <Box display="flex" alignItems="center" gap={1}>
               <NightsStayIcon color="primary" />
               <Box>
                 <Typography variant="body2" color="text.secondary">
-                  Time Sleeping
+                  Czas snu
                 </Typography>
                 <Typography variant="h6">{formatHoursAndMinutes(minutesSleeping)}</Typography>
               </Box>
@@ -53,12 +53,12 @@ export const SleepMetricsSummary = ({
           </Tooltip>
         </Grid>
         <Grid item xs={12} sm={4}>
-          <Tooltip title="Sleep efficiency percentage">
+          <Tooltip title="Procent efektywności snu">
             <Box display="flex" alignItems="center" gap={1}>
               <SpeedIcon color="primary" />
               <Box>
                 <Typography variant="body2" color="text.secondary">
-                  Sleep Efficiency
+                  Efektywność snu
                 </Typography>
                 <Typography variant="h6">
                   {sleepingEfficiency !== null ? `${sleepingEfficiency}%` : '-'}

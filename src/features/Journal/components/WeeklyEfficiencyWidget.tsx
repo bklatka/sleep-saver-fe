@@ -1,4 +1,5 @@
 import React from 'react';
+import pl from 'date-fns/locale/pl';
 
 import { Box, Paper, Typography } from '@mui/material';
 import { eachDayOfInterval, endOfWeek, format, startOfWeek } from 'date-fns';
@@ -28,7 +29,7 @@ export const WeeklyEfficiencyWidget = observer(() => {
       );
 
       return {
-        date: format(date, 'EEE'),
+        date: format(date, 'EEE', { locale: pl }),
         efficiency: entry?.sleepingEfficiency ?? null,
       };
     });
@@ -40,7 +41,7 @@ export const WeeklyEfficiencyWidget = observer(() => {
       return (
         <Paper sx={{ p: 1 }}>
           <Typography variant="body2">
-            {label}: {efficiency !== null ? `${efficiency}%` : 'No data'}
+            {label}: {efficiency !== null ? `${efficiency}%` : 'Brak danych'}
           </Typography>
         </Paper>
       );
@@ -51,7 +52,7 @@ export const WeeklyEfficiencyWidget = observer(() => {
   return (
     <Paper sx={{ p: 2, height: '100%' }}>
       <Typography variant="h6" gutterBottom>
-        Sleep Efficiency This Week
+        Efektywność Snu w Tym Tygodniu
       </Typography>
       <Box sx={{ width: '100%', height: 300 }}>
         <ResponsiveContainer>
@@ -62,7 +63,7 @@ export const WeeklyEfficiencyWidget = observer(() => {
               ticks={[0, 25, 50, 75, 100]}
               stroke="#666"
               label={{
-                value: 'Efficiency %',
+                value: 'Efektywność %',
                 angle: -90,
                 position: 'insideLeft',
                 style: { textAnchor: 'middle' },

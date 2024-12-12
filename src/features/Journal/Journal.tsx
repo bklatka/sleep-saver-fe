@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import pl from 'date-fns/locale/pl';
 
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
@@ -40,14 +41,14 @@ const DayCard = ({ date, entry, onEdit, onAdd, formatTime }) => (
   <Card sx={{ mb: 2 }}>
     <CardContent>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-        <Typography variant="h6">{format(date, 'EEE, MMM d')}</Typography>
+        <Typography variant="h6">{format(date, 'EEE, d MMM', { locale: pl })}</Typography>
         {entry ? (
           <Button startIcon={<EditIcon />} onClick={onEdit} size="small">
-            Edit
+            Edytuj
           </Button>
         ) : (
           <Button startIcon={<AddIcon />} onClick={onAdd} size="small" color="primary">
-            Add
+            Dodaj
           </Button>
         )}
       </Box>
@@ -57,7 +58,7 @@ const DayCard = ({ date, entry, onEdit, onAdd, formatTime }) => (
           <Stack spacing={1}>
             <Box>
               <Typography variant="body2" color="text.secondary">
-                Bed time
+                Pora snu
               </Typography>
               <Typography>
                 {formatTime(entry.timeGoToBed)} → {formatTime(entry.timeDecidedToSleep)}
@@ -66,7 +67,7 @@ const DayCard = ({ date, entry, onEdit, onAdd, formatTime }) => (
 
             <Box>
               <Typography variant="body2" color="text.secondary">
-                Wake up time
+                Pora pobudki
               </Typography>
               <Typography>
                 {formatTime(entry.timeWakeupMorning)} → {formatTime(entry.timeOutOfBedMorning)}
@@ -75,7 +76,7 @@ const DayCard = ({ date, entry, onEdit, onAdd, formatTime }) => (
 
             <Box>
               <Typography variant="body2" color="text.secondary">
-                Progress
+                Postęp
               </Typography>
               <CompactProgress
                 completedFields={calculateCompletedFields(entry)}
@@ -109,7 +110,7 @@ export const JournalList = observer(() => {
 
   const formatTime = (dateString: string | null) => {
     if (!dateString) return '-';
-    return format(new Date(dateString), 'HH:mm');
+    return format(new Date(dateString), 'HH:mm', { locale: pl });
   };
 
   const handleDownload = async (weekStart: Date) => {
@@ -131,14 +132,14 @@ export const JournalList = observer(() => {
   return (
     <Box sx={{ p: 3 }}>
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
-        <Typography variant="h4">Sleep Journal</Typography>
+        <Typography variant="h4">Dziennik snu</Typography>
         <Button
           variant="contained"
           color="primary"
           startIcon={<AddIcon />}
           onClick={() => setIsNewEntryDialogOpen(true)}
         >
-          New Entry
+          Nowy wpis
         </Button>
       </Box>
 
@@ -162,7 +163,7 @@ export const JournalList = observer(() => {
               onClick={() => handleDownload(group.weekStart)}
               disabled={downloadReport.isPending}
             >
-              {downloadReport.isPending ? 'Downloading...' : 'Download PDF'}
+              {downloadReport.isPending ? 'Pobieranie...' : 'Pobierz PDF'}
             </Button>
           </Box>
 
@@ -186,11 +187,11 @@ export const JournalList = observer(() => {
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell align="center">Bed time</TableCell>
-                    <TableCell align="center">Wake up time</TableCell>
-                    <TableCell align="center">Progress</TableCell>
-                    <TableCell align="center">Actions</TableCell>
+                    <TableCell>Data</TableCell>
+                    <TableCell align="center">Pora snu</TableCell>
+                    <TableCell align="center">Pora pobudki</TableCell>
+                    <TableCell align="center">Postęp</TableCell>
+                    <TableCell align="center">Akcje</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -202,11 +203,11 @@ export const JournalList = observer(() => {
                           backgroundColor: entry ? undefined : 'action.hover',
                         }}
                       >
-                        <TableCell>{format(date, 'EEE, MMM d')}</TableCell>
+                        <TableCell>{format(date, 'EEE, d MMM', { locale: pl })}</TableCell>
                         {entry ? (
                           <>
                             <TableCell align="center">
-                              <Tooltip title="Time went to bed → Time decided to sleep" arrow>
+                              <Tooltip title="Czas pójścia do łóżka → Czas decyzji o śnie" arrow>
                                 <span>
                                   {formatTime(entry.timeGoToBed)} →{' '}
                                   {formatTime(entry.timeDecidedToSleep)}
@@ -214,7 +215,7 @@ export const JournalList = observer(() => {
                               </Tooltip>
                             </TableCell>
                             <TableCell align="center">
-                              <Tooltip title="Time woke up → Time got out of bed" arrow>
+                              <Tooltip title="Czas obudzenia → Czas wstania z łóżka" arrow>
                                 <span>
                                   {formatTime(entry.timeWakeupMorning)} →{' '}
                                   {formatTime(entry.timeOutOfBedMorning)}
@@ -233,7 +234,7 @@ export const JournalList = observer(() => {
                                 onClick={() => navigate(`/journal/${format(date, 'yyyy-MM-dd')}`)}
                                 size="small"
                               >
-                                Edit
+                                Edytuj
                               </Button>
                             </TableCell>
                           </>
@@ -249,7 +250,7 @@ export const JournalList = observer(() => {
                                 size="small"
                                 color="primary"
                               >
-                                Add
+                                Dodaj
                               </Button>
                             </TableCell>
                           </>
@@ -267,7 +268,7 @@ export const JournalList = observer(() => {
       {!journals?.length && (
         <Paper elevation={2} sx={{ p: 3, textAlign: 'center' }}>
           <Typography color="textSecondary">
-            No journal entries yet. Create your first entry!
+            Brak wpisów w dzienniku. Utwórz swój pierwszy wpis!
           </Typography>
         </Paper>
       )}

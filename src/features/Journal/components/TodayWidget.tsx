@@ -37,7 +37,7 @@ export const TodayWidget = ({ todayEntry }: TodayWidgetProps) => {
       }}
     >
       <Typography variant="h6" color="primary">
-        Today's Journal
+        Dzisiejszy Dziennik
       </Typography>
 
       <Box
@@ -82,10 +82,10 @@ export const TodayWidget = ({ todayEntry }: TodayWidgetProps) => {
 
       <Typography variant="body2" color="text.secondary" align="center">
         {isComplete
-          ? 'All fields completed!'
+          ? 'Wszystkie pola wypełnione!'
           : todayEntry
-            ? `${completedFields} of ${TOTAL_REQUIRED_FIELDS} fields completed`
-            : 'No entry yet'}
+            ? `${completedFields} z ${TOTAL_REQUIRED_FIELDS} pól wypełnionych`
+            : 'Brak wpisu'}
       </Typography>
 
       {!isComplete && (
@@ -95,7 +95,7 @@ export const TodayWidget = ({ todayEntry }: TodayWidgetProps) => {
           startIcon={todayEntry ? <EditIcon /> : <AddIcon />}
           onClick={() => navigate(`/journal/${today}`)}
         >
-          {todayEntry ? 'Continue Entry' : 'Start Entry'}
+          {todayEntry ? 'Kontynuuj Wpis' : 'Rozpocznij Wpis'}
         </Button>
       )}
     </Paper>

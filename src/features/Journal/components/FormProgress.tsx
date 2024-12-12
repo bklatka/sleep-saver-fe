@@ -16,10 +16,10 @@ export const FormProgress = ({ completedFields, totalFields }: FormProgressProps
     <Box sx={{ width: '100%', mb: 3 }}>
       <Stack direction="row" spacing={1} alignItems="center" mb={1}>
         <Typography variant="body2" color="text.secondary">
-          Progress: {completedFields}/{totalFields} fields completed
+          Postęp: {completedFields}/{totalFields} wypełnionych pól
         </Typography>
         {isComplete && (
-          <Tooltip title="All required fields completed">
+          <Tooltip title="Wszystkie wymagane pola zostały wypełnione">
             <CheckCircleIcon color="success" />
           </Tooltip>
         )}

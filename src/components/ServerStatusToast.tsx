@@ -112,7 +112,7 @@ export const ServerStatusToast = () => {
             severity="success"
             sx={{ mb: 2 }}
           >
-            Server Connected
+            Połączono z serwerem
           </Alert>
         ) : (
           <Alert

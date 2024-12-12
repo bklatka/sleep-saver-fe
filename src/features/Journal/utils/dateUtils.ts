@@ -1,4 +1,5 @@
 import { eachDayOfInterval, endOfWeek, format, isSameDay, startOfWeek } from 'date-fns';
+import pl from 'date-fns/locale/pl';
 
 import { WeekStartDay } from '../../../stores/SettingsStore';
 import { JournalEntry } from '../types';
@@ -38,7 +39,7 @@ export const groupEntriesByWeek = (entries: JournalEntry[], weekStartsOn: WeekSt
 
 export const formatWeekRange = (weekStart: Date, weekStartsOn: WeekStartDay): string => {
   const weekEnd = endOfWeek(weekStart, { weekStartsOn });
-  return `${format(weekStart, 'MMM d')} - ${format(weekEnd, 'MMM d, yyyy')}`;
+  return `${format(weekStart, 'd MMM', { locale: pl })} - ${format(weekEnd, 'd MMM yyyy', { locale: pl })}`;
 };
 
 export const getWeekDays = (

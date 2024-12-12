@@ -54,7 +54,7 @@ export const WeekProgressWidget = ({ journals }: WeekProgressWidgetProps) => {
       }}
     >
       <Typography variant="h6" color="primary">
-        This Week's Progress
+        Postęp w tym tygodniu
       </Typography>
 
       <Box
@@ -99,13 +99,13 @@ export const WeekProgressWidget = ({ journals }: WeekProgressWidgetProps) => {
 
       <Typography variant="body2" color="text.secondary" align="center">
         {isComplete
-          ? 'All days completed this week!'
-          : `${weekStats.completedDays} of ${weekStats.totalDays} days completed`}
+          ? 'Wszystkie dni w tym tygodniu uzupełnione!'
+          : `${weekStats.completedDays} z ${weekStats.totalDays} dni uzupełnionych`}
       </Typography>
 
-      <Tooltip title="Days are counted as complete when all fields are filled">
+      <Tooltip title="Dni są liczone jako ukończone, gdy wszystkie pola są wypełnione">
         <Typography variant="caption" color="text.secondary" align="center">
-          Complete entries required
+          Liczone są tylko w pełni uzupełnione wpisy.
         </Typography>
       </Tooltip>
     </Paper>

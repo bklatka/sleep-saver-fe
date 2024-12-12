@@ -34,7 +34,7 @@ export const Login = () => {
     <Box className={styles.container}>
       <Paper className={styles.paper}>
         <Typography variant="h4" className={styles.title}>
-          Login
+          Logowanie
         </Typography>
         <form onSubmit={handleLogin} className={styles.form}>
           <TextField
@@ -49,7 +49,7 @@ export const Login = () => {
             disabled={isLoading}
           />
           <TextField
-            label="Password"
+            label="Hasło"
             type="password"
             fullWidth
             variant="outlined"
@@ -67,7 +67,7 @@ export const Login = () => {
             className={styles.button}
             disabled={isLoading}
           >
-            {isLoading ? 'Logging in...' : 'Login'}
+            {isLoading ? 'Logowanie....' : 'Zaloguj'}
           </Button>
         </form>
       </Paper>
