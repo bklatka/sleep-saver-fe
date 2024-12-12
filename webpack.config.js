@@ -71,7 +71,7 @@ module.exports = {
     }),
     process.env.NODE_ENV !== 'production' && new ReactRefreshWebpackPlugin(),
     new webpack.DefinePlugin({
-      'process.env': JSON.stringify(dotenv.config().parsed)
+      'process.env': JSON.stringify(dotenv.config().parsed),
     }),
   ].filter(Boolean),
   devServer: {
