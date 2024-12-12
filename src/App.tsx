@@ -8,6 +8,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { Toast } from './components/Toast';
+import { ServerStatusToast } from './components/ServerStatusToast';
 import { Dashboard } from './features/Dashboard/Dashboard';
 import { History } from './features/History/History';
 import { Journal } from './features/Journal/Journal';
@@ -37,6 +38,8 @@ function App() {
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <CssBaseline />
           <RouterProvider router={router} />
+          <Toast />
+          <ServerStatusToast />
         </LocalizationProvider>
       </QueryClientProvider>
     </ThemeProvider>
